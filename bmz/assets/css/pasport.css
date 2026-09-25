@@ -1,0 +1,128 @@
+/* Паспорт и после поставки — pasport.html. Владелец — таск 06.
+   Только токены из styles.css, литералов цвета и размера шрифта нет, жирность не выше 600
+   (кроме моно-цифр таблички в shildik.js). Вид блоков — из семьи карточки аппарата. */
+
+.pp > * + * { margin-top: var(--space-4); }
+.pp > .crumbs + .pp-head { margin-top: 0; }
+.pp-sec-title {
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--fs-sm); line-height: 1.3;
+  text-transform: uppercase; letter-spacing: var(--track-mono); margin: 0;
+}
+.pp-cap { margin: var(--space-3) 0 0; font-size: var(--fs-sm); color: var(--c-muted); }
+.pp-err { margin: 0; font-size: var(--fs-sm); color: var(--c-danger); font-weight: 500; }
+.pp .card__head { flex-wrap: wrap; gap: var(--space-2); }
+
+/* --- шапка ------------------------------------------------------------------ */
+.pp-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4) var(--space-6); flex-wrap: wrap; }
+.pp-head__main { min-width: 0; flex: 1 1 480px; }
+.pp-head__main > .label { margin-bottom: var(--space-2); }
+.pp-head__title { margin-bottom: var(--space-1); color: var(--c-navy); }
+.pp-head__obozn { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--c-blue); margin: 0; overflow-wrap: anywhere; }
+.pp-head__where { margin: var(--space-1) 0 0; font-size: var(--fs-sm); color: var(--c-muted); }
+.pp-head__acts { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: flex-end; }
+
+/* --- табличка, гарантия, календарь ----------------------------------------------- */
+.pp-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+.pp-top__side { display: grid; gap: var(--space-4); min-width: 0; }
+.pp-shl .card__body { padding: var(--space-5); background: var(--c-surface-2); }
+
+.pp-gar__body { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+.pp-gar__ost { padding: var(--space-3); background: var(--c-blue-tint); border-left: 3px solid var(--c-blue); }
+[data-garantiya="expired"] .pp-gar__ost { background: var(--c-neutral-bg); border-left-color: var(--c-line-strong); }
+.pp-gar__big { margin: 0; font-family: var(--font-mono); font-size: var(--fs-lg); line-height: 1.2; color: var(--c-navy); }
+.pp-gar__big .num { font-size: var(--fs-xxl); font-weight: 500; }
+.pp-gar__big--off { color: var(--c-muted); }
+.pp-gar__sub { margin: var(--space-1) 0 0; font-size: var(--fs-sm); color: var(--c-muted); }
+
+.pp-dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
+.pp-dl--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
+.pp-dl__i { display: grid; grid-template-columns: minmax(120px, 44%) minmax(0, 1fr); gap: var(--space-3); padding: var(--space-2) 0; border-bottom: 1px solid var(--c-line); min-width: 0; }
+.pp-dl__i dt { font-size: var(--fs-sm); color: var(--c-muted); }
+.pp-dl__i dd { margin: 0; overflow-wrap: anywhere; }
+.pp-dl__note { display: block; font-size: var(--fs-xs); color: var(--c-muted); }
+
+.pp-napom { margin: 0 0 var(--space-3); padding: var(--space-3); background: var(--c-warn-bg); color: var(--c-warn); border-left: 3px solid var(--c-warn); font-size: var(--fs-sm); }
+.pp-napom .strong { font-weight: 600; }
+.pp-kal__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--c-line); }
+.pp-kal__i { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-2); border-bottom: 1px solid var(--c-line); }
+.pp-kal__i.is-blizh { background: var(--c-blue-tint); box-shadow: inset 3px 0 0 var(--c-blue); }
+.pp-kal__what, .pp-kal__when { display: flex; flex-direction: column; min-width: 0; }
+.pp-kal__when { text-align: right; }
+.pp-kal__t { font-weight: 500; }
+.pp-kal__p, .pp-kal__rel { font-size: var(--fs-xs); color: var(--c-muted); }
+.pp-kal__d { font-family: var(--font-mono); font-size: var(--fs-sm); }
+.is-blizh .pp-kal__d { color: var(--c-blue); font-weight: 500; }
+
+/* --- паспорт ----------------------------------------------------------------------- */
+.pp-ps { border-top: 3px solid var(--c-blue); }
+.pp-ps__head .label { margin-bottom: 2px; }
+.pp-ps__title { font-size: var(--fs-base); }
+.pp-ps__note { margin: 0 0 var(--space-4); padding: var(--space-2) var(--space-3); background: var(--c-surface-2); font-size: var(--fs-sm); color: var(--c-muted); }
+.pp-ps__sec + .pp-ps__sec { margin-top: var(--space-5); }
+.pp-ps__h { margin: 0 0 var(--space-2); font-size: var(--fs-base); font-weight: 600; color: var(--c-navy); }
+.pp-ps__p { margin: 0; }
+.pp-ps__sign { margin: var(--space-2) 0 0; font-size: var(--fs-sm); color: var(--c-muted); }
+.pp-ps__foot { margin: var(--space-5) 0 0; font-size: var(--fs-xs); color: var(--c-muted); }
+
+/* --- ЗИП ------------------------------------------------------------------------- */
+.pp-zip .table td { vertical-align: middle; }
+.pp-zip__chk { width: 18px; height: 18px; accent-color: var(--c-navy); cursor: pointer; }
+.pp-zip__t { font-weight: 500; }
+.pp-zip__foot { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+
+/* --- обращения ------------------------------------------------------------------ */
+.pp-servis { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+.pp-servis--one { grid-template-columns: minmax(0, 1fr); }
+.pp-file { position: relative; overflow: hidden; align-self: flex-start; }
+.pp-file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+.pp-prev { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-2); }
+.pp-prev img { display: block; width: 96px; height: 72px; object-fit: cover; border: 1px solid var(--c-line); border-radius: var(--radius); }
+.pp-prev__name { font-size: var(--fs-sm); color: var(--c-muted); min-width: 0; overflow-wrap: anywhere; }
+.pp-forma__acts { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pp-forma .pp-cap { margin-top: 0; }
+
+.pp-ob__list { list-style: none; margin: 0; padding: 0; }
+.pp-ob__i { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--c-line); }
+.pp-ob__i:last-child { border-bottom: 0; }
+.pp-ob__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
+.pp-ob__vid { font-weight: 600; }
+.pp-ob__meta { margin: 2px 0 0; font-size: var(--fs-xs); color: var(--c-muted); }
+.pp-ob__text { margin: var(--space-2) 0 0; overflow-wrap: anywhere; }
+.pp-ob__foto { display: block; margin-top: var(--space-2); max-width: 160px; max-height: 120px; border: 1px solid var(--c-line); border-radius: var(--radius); }
+.pp-ob__i .btn { margin-top: var(--space-2); }
+
+/* --- окно 1С:ТОИР ---------------------------------------------------------------- */
+.pp-toir__later { margin: var(--space-3) 0 0; padding: var(--space-2) var(--space-3); background: var(--c-blue-tint); border-left: 3px solid var(--c-blue); font-weight: 500; }
+
+/* --- ширины ---------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .pp-top { grid-template-columns: minmax(0, 1fr); }
+  .pp-top__side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  .pp-top__side, .pp-servis { grid-template-columns: minmax(0, 1fr); }
+  .pp-dl--2 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  .pp-head__acts { justify-content: flex-start; }
+  .pp-head__acts .btn { flex: 1 1 100%; }
+  .pp-shl .card__body { padding: var(--space-3); }
+  .pp-gar__body { grid-template-columns: minmax(0, 1fr); }
+  .pp-dl__i { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .pp-kal__i { grid-template-columns: minmax(0, 1fr) auto; }
+  .pp-kal__b { grid-column: 1 / -1; justify-self: start; }
+  .pp-zip [data-col="obozn"] { display: none; }
+}
+
+/* --- печать: «Скачать паспорт» — только раздел паспорта ---------------------------- */
+@media print {
+  @page { margin: 14mm 12mm; }
+  body { background: var(--c-surface); }
+  .shell-header, .shell-footer, .proto-dock, .proto-panel, .modal-backdrop, .pp-noprint { display: none !important; }
+  .shell-main, .shell-main > .container { padding: 0; margin: 0; max-width: none; }
+  .pp > :not(#pp-pasport) { display: none !important; }
+  .pp > #pp-pasport { margin: 0; border: 0; box-shadow: none; }
+  .pp-ps .card__head, .pp-ps .card__body { padding-left: 0; padding-right: 0; }
+  .pp-ps__sec { break-inside: avoid; }
+  .pp-dl--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

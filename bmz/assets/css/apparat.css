@@ -1,0 +1,297 @@
+/* Карточка аппарата — apparat.html. Владелец — таск 04.
+   Только токены из styles.css, литералов цвета нет, жирность не выше 600.
+   Раскладка данных — по референсам: страница единицы GE Vernova (шапка со
+   статусом, лента событий), реестр Aconex (документ · рев. · код · срок),
+   замечания Pilot-ICE (список справа от листа, ответ под каждым). */
+
+.ap-sec-title {
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--fs-sm); line-height: 1.3;
+  text-transform: uppercase; letter-spacing: var(--track-mono); margin: 0;
+}
+.ap-sub { font-size: var(--fs-sm); font-weight: 600; margin: 0 0 var(--space-2); }
+.ap > * + * { margin-top: var(--space-4); }
+.ap > .crumbs + .ap-head { margin-top: 0; }
+
+/* --- шапка ------------------------------------------------------------------ */
+.ap-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4) var(--space-6); flex-wrap: wrap; }
+.ap-head__main { min-width: 0; flex: 1 1 520px; }
+.ap-head__main > .label { margin-bottom: var(--space-2); }
+.ap-head__title { margin-bottom: var(--space-1); color: var(--c-navy); }
+.ap-head__obozn { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--c-blue); margin: 0; overflow-wrap: anywhere; }
+.ap-head__side { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); text-align: right; }
+.ap-head__side .nakom { font-size: var(--fs-base); padding: 8px 14px; }
+.ap-head__etap { font-size: var(--fs-sm); color: var(--c-muted); margin: 0; }
+
+.ap-pasp { display: grid; grid-template-columns: minmax(0, 1fr) 340px; }  /* 3 колонки сведений + менеджер = 4 */
+.ap-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
+.ap-facts__i { padding: var(--space-3) var(--space-4); border-right: 1px solid var(--c-line); border-bottom: 1px solid var(--c-line); min-width: 0; }
+.ap-facts__i:nth-child(3n) { border-right: 0; }
+.ap-facts__i:nth-last-child(-n+3) { border-bottom: 0; }
+.ap-facts__i dt { margin-bottom: 2px; }
+.ap-facts__i dd { margin: 0; font-size: var(--fs-base); overflow-wrap: anywhere; }
+.ap-mgr { padding: var(--space-3) var(--space-4); border-left: 1px solid var(--c-line); background: var(--c-surface-2); }
+.ap-mgr .label { margin-bottom: var(--space-1); }
+.ap-mgr p { margin: 0; }
+.ap-mgr__name { font-weight: 600; }
+.ap-mgr__pos { font-size: var(--fs-sm); color: var(--c-muted); }
+.ap-mgr .ap-mgr__cont { font-size: var(--fs-sm); margin-top: var(--space-2); }
+.ap-mgr__cont .link-btn { font-size: var(--fs-sm); }
+
+.ap-etapy .card__body { padding: var(--space-4) var(--space-4) var(--space-3); }
+
+/* --- блок завода --------------------------------------------------------------- */
+.ap-zavod { border-left: 3px solid var(--c-navy); }
+.ap-zavod__grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--space-5); align-items: start; }
+.ap-zavod__label { margin-bottom: var(--space-2); }
+.ap-zavod__acts { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-2); }
+
+/* --- вкладки ------------------------------------------------------------------ */
+.ap .ap-tabs { margin-top: var(--space-5); margin-bottom: 0; }
+.ap-tabs__n {
+  display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; margin-left: 4px;
+  border-radius: 9px; background: var(--c-warn); color: var(--c-surface); font-size: var(--fs-2xs); font-family: var(--font); vertical-align: 1px;
+}
+.ap-body > * + * { margin-top: var(--space-4); }
+.ap-body { margin-top: var(--space-4); }
+
+/* --- реестр документов ---------------------------------------------------------- */
+.ap-reg .card__head { flex-wrap: wrap; }
+.ap-kody { display: flex; flex-wrap: wrap; gap: 2px var(--space-4); margin: 0; font-size: var(--fs-xs); color: var(--c-muted); }
+.ap-kody .mono { color: var(--c-text); }
+.ap-reg .table td { vertical-align: middle; }
+.ap-reg .nakom { padding: 2px 8px; font-size: var(--fs-xs); border-left-width: 2px; }
+.ap-reg tr.is-open td { background: var(--c-blue-tint); }
+.ap-reg tr.is-open td:first-child { box-shadow: inset 3px 0 0 var(--c-blue); }
+.ap-reg__doc { font-weight: 500; }
+.ap-reg__rel { display: block; font-size: var(--fs-xs); color: var(--c-muted); }
+
+/* --- документ: слева лист или 3D, справа замечания ------------------------------- */
+.ap-doc { border-top: 3px solid var(--c-blue); }
+.ap-doc__head { flex-wrap: wrap; align-items: flex-end; }
+.ap-doc__name { min-width: 0; flex: 1 1 260px; }
+.ap-doc__name .label { margin-bottom: 2px; }
+.ap-revs { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+.ap-rev {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0; padding: 4px 10px; cursor: pointer;
+  background: var(--c-surface); border: 1px solid var(--c-line-strong); border-radius: var(--radius); line-height: 1.25;
+}
+.ap-rev:hover { border-color: var(--c-navy); }
+.ap-rev.is-active { background: var(--c-navy); border-color: var(--c-navy); color: var(--c-on-navy); }
+.ap-rev__n { font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500; text-transform: uppercase; }
+.ap-rev__d { font-size: var(--fs-2xs); opacity: .8; }
+
+.ap-doc__grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; }
+.ap-doc__view { padding: var(--space-4); min-width: 0; }
+.ap-doc__side { border-left: 1px solid var(--c-line); padding: var(--space-4); background: var(--c-surface); min-width: 0; }
+.ap-doc__side > * + * { margin-top: var(--space-4); }
+
+.ap-model { min-height: 300px; }
+.ap .m3d__view { border-radius: var(--radius); background: var(--c-surface-2); border: 1px solid var(--c-line); }
+.ap .m3d__caption, .ap .m3d__hint { font-family: var(--font); color: var(--c-muted); }
+.ap .m3d__rev { font-family: var(--font-mono); font-weight: 500; background: var(--c-navy); border-radius: var(--radius); text-transform: uppercase; }
+.ap-pick { min-height: 1.5em; margin: var(--space-2) 0 0; font-size: var(--fs-sm); color: var(--c-blue); font-weight: 500; }
+
+/* Превью документа: лист на сером столе. A4 книжный уже колонки, A3 чертежа — во всю ширину.
+   Шрифты в листе — токены; мельче токена лист уменьшает масштабом группы, не литералом. */
+.apl { margin: 0; }
+.apl__desk { background: var(--c-surface-2); border: 1px solid var(--c-line); border-radius: var(--radius); padding: var(--space-4); }
+.apl__sheet { display: block; width: 100%; height: auto; margin: 0 auto; box-shadow: 0 1px 4px var(--c-line-strong); }
+.apl--a4 .apl__sheet { max-width: 540px; }
+.apl__cap { margin-top: var(--space-2); font-size: var(--fs-sm); color: var(--c-muted); }
+.modal .apl__desk { padding: var(--space-3); }
+.modal .apl--a4 .apl__sheet { max-width: min(540px, calc((100vh - 230px) * .707)); }
+.apl__sheet .apl-paper { fill: var(--c-surface); }
+.apl__sheet .apl-k { fill: none; stroke: var(--c-navy); stroke-width: 2.1; }
+.apl__sheet .apl-paper.apl-k { fill: var(--c-surface); }
+.apl__sheet .apl-t { fill: none; stroke: var(--c-navy); stroke-width: .9; }
+.apl__sheet .apl-ax { fill: none; stroke: var(--c-navy); stroke-width: .9; stroke-dasharray: 26 6 3 6; }
+.apl__sheet .apl-dot { fill: var(--c-navy); }
+.apl__sheet .apl-bar { fill: var(--c-line); }
+.apl__sheet .apl-head { fill: var(--c-surface-2); stroke: none; }
+.apl__sheet .apl-note { fill: none; stroke: var(--c-navy); stroke-width: .9; }
+.apl__sheet .apl-markbox { fill: none; stroke: var(--c-line-strong); stroke-width: 1.5; }
+.apl__sheet text { fill: var(--c-navy); font-family: var(--font); font-weight: 400; }
+.apl__sheet .apl-lab, .apl__sheet .apl-val { font-size: var(--fs-2xs); }
+.apl__sheet .apl-val { font-weight: 500; }
+.apl__sheet .apl-obz { font-size: var(--fs-md); font-weight: 500; letter-spacing: .02em; }
+.apl__sheet .apl-name { font-size: var(--fs-sm); font-weight: 500; }
+.apl__sheet .apl-h { font-family: var(--font-mono); font-size: var(--fs-lg); font-weight: 500; letter-spacing: .03em; }
+.apl__sheet .apl-sub { font-size: var(--fs-base); }
+.apl__sheet .apl-p { font-size: var(--fs-sm); }
+.apl__sheet .apl-pb { font-size: var(--fs-sm); font-weight: 500; }
+.apl__sheet .apl-sm { font-size: var(--fs-xs); }
+.apl__sheet .apl-muted { fill: var(--c-muted); }
+.apl__sheet .apl-mark { fill: var(--c-line-strong); font-family: var(--font-mono); font-size: var(--fs-md); font-weight: 500; letter-spacing: .2em; }
+
+/* Переключатель «3D-модель / Чертёж» у АВО. */
+.ap-vid { display: inline-flex; margin-bottom: var(--space-3); border: 1px solid var(--c-line-strong); border-radius: var(--radius); overflow: hidden; }
+.ap-vid__btn { background: var(--c-surface); border: 0; padding: 6px 14px; cursor: pointer; font: 500 var(--fs-sm) var(--font); color: var(--c-navy); }
+.ap-vid__btn + .ap-vid__btn { border-left: 1px solid var(--c-line-strong); }
+.ap-vid__btn:hover { background: var(--c-surface-2); }
+.ap-vid__btn.is-active { background: var(--c-navy); color: var(--c-on-navy); }
+.ap-doc-link { text-align: left; }
+
+/* замечания списком, ответ завода под каждым */
+.ap-zm-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.ap-zm-head .ap-sub { margin: 0; }
+.ap-zm-head__n { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--c-muted); }
+.ap-doc__side .ap-zm { list-style: none; border-top: 1px solid var(--c-line); margin-top: var(--space-2); }
+.ap-zm__item { padding: var(--space-3) 0; border-bottom: 1px solid var(--c-line); }
+.ap-zm__top { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-1); }
+.ap-zm__n {
+  display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: var(--radius);
+  background: var(--c-surface-2); font-family: var(--font-mono); font-size: var(--fs-xs); flex: none;
+}
+.ap-zm__poz {
+  font: 500 var(--fs-xs)/1.4 var(--font); padding: 1px 8px; border-radius: var(--radius); cursor: pointer;
+  background: var(--c-blue-tint); color: var(--c-blue); border: 1px solid transparent;
+}
+.ap-zm__poz:hover { border-color: var(--c-blue); }
+.ap-zm__poz.is-plain { cursor: default; background: var(--c-neutral-bg); color: var(--c-neutral); }
+.ap-zm__poz.is-plain:hover { border-color: transparent; }
+.ap-zm__date { margin-left: auto; font-size: var(--fs-xs); color: var(--c-muted); white-space: nowrap; }
+.ap-zm__text { margin: 0 0 2px; }
+.ap-zm__who { margin: 0; font-size: var(--fs-xs); color: var(--c-muted); }
+.ap-zm__otvet { margin-top: var(--space-2); padding: 6px 10px; border-left: 3px solid currentColor; border-radius: var(--radius); }
+.ap-zm__otvet p { margin: 0; }
+.ap-zm__otvet.is-ok { background: var(--c-ok-bg); color: var(--c-ok); }
+.ap-zm__otvet.is-no { background: var(--c-danger-bg); color: var(--c-danger); }
+.ap-zm__otvet-text { color: var(--c-text); font-size: var(--fs-sm); }
+.ap-zm__verdict { font-weight: 600; }
+.ap-zm__otvet.is-ok .ap-zm__verdict { color: var(--c-ok); }
+.ap-zm__otvet.is-no .ap-zm__verdict { color: var(--c-danger); }
+.ap-zm__wait { margin: var(--space-2) 0 0; }
+.ap-zm__form { margin-top: var(--space-2); }
+.ap-zm__form .textarea { min-height: 56px; }
+.ap-zm__btns { margin-top: var(--space-2); gap: var(--space-2); }
+.ap-zm-empty { margin: var(--space-2) 0 0; }
+
+.ap-form { padding-top: var(--space-3); border-top: 1px solid var(--c-line); }
+.ap-form > * + * { margin-top: var(--space-2); }
+.ap-form .textarea { min-height: 64px; }
+.ap-form__err { margin: 0; font-size: var(--fs-sm); color: var(--c-danger); font-weight: 500; }
+.ap-form__note { margin: 0; font-size: var(--fs-xs); color: var(--c-muted); }
+.ap-kod-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.ap-kod { align-items: center; padding: 6px 8px; border: 1px solid var(--c-line); border-radius: var(--radius); }
+.ap-kod:hover { border-color: var(--c-blue); }
+.ap-kod input { margin: 0; }
+.ap-kod:has(input:checked) { border-color: var(--c-blue); background: var(--c-blue-tint); }
+.ap-doc__status { margin: 0; font-size: var(--fs-sm); display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--space-2); }
+.ap-doc__status.is-ok { color: var(--c-ok); }
+
+/* опросный лист */
+.ap-opros > summary { cursor: pointer; list-style: none; }
+.ap-opros > summary::-webkit-details-marker { display: none; }
+.ap-opros > summary .ap-sec-title::before { content: '+ '; color: var(--c-blue); }
+.ap-opros[open] > summary .ap-sec-title::before { content: '− '; }
+.ap-opros:not([open]) > summary { border-bottom: 0; }
+.ap-opros__kv { grid-template-columns: 220px minmax(0, 1fr) 220px minmax(0, 1fr); }
+
+/* --- производство и испытания ------------------------------------------------------ */
+.ap-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--radius); }
+.ap-stat { padding: var(--space-3) var(--space-4); border-right: 1px solid var(--c-line); }
+.ap-stat:last-child { border-right: 0; }
+.ap-stat p { margin: 0; }
+.ap-stat .ap-stat__v { font-family: var(--font-mono); font-size: var(--fs-lg); line-height: 1.3; margin-top: 2px; }
+.ap-stat__n { font-size: var(--fs-sm); color: var(--c-muted); }
+
+.ap-pmi-card .card__head { flex-wrap: wrap; }
+.ap-legend { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin: 0; font-size: var(--fs-xs); color: var(--c-muted); }
+.ap-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.ap-legend .ap-pmi__tip { width: 20px; height: 20px; font-size: var(--fs-2xs); }
+
+.ap-pmi__cols, .ap-pmi__item {
+  display: grid; grid-template-columns: 28px 32px minmax(0, 1fr) 96px minmax(0, 210px) 330px; gap: var(--space-3); align-items: start;
+}
+.ap-pmi__cols {
+  padding: 8px var(--space-4); background: var(--c-surface-2); border-bottom: 1px solid var(--c-line);
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500; letter-spacing: .03em; text-transform: uppercase; color: var(--c-muted);
+}
+.ap-pmi { list-style: none; }
+.ap-pmi__item { position: relative; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--c-line); }
+.ap-pmi__item:last-child { border-bottom: 0; }
+.ap-pmi__item.is-current { background: var(--c-warn-bg); }
+.ap-pmi__item.is-current::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c-warn); }
+.ap-pmi__item.is-plan .ap-pmi__title, .ap-pmi__item.is-plan .ap-pmi__date { color: var(--c-muted); }
+.ap-pmi__n { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--c-muted); padding-top: 4px; }
+.ap-pmi__tip {
+  display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: var(--radius);
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--fs-sm); border: 1px solid currentColor;
+}
+.ap-pmi__tip--H { background: var(--c-navy); color: var(--c-on-navy); border-color: var(--c-navy); }
+.ap-pmi__tip--W { background: var(--c-blue-tint); color: var(--c-blue); }
+.ap-pmi__tip--R { background: var(--c-surface); color: var(--c-muted); }
+.ap-pmi__item.is-done .ap-pmi__tip--H { background: var(--c-surface); color: var(--c-navy); }
+.ap-pmi__main p { margin: 0; }
+.ap-pmi__title { font-weight: 600; }
+.ap-pmi__meta { font-size: var(--fs-xs); color: var(--c-muted); }
+.ap-pmi__main .ap-pmi__status { margin-top: var(--space-1); display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--space-2); }
+.ap-pmi__plan { font-size: var(--fs-xs); color: var(--c-muted); }
+.ap-pmi__when { font-size: var(--fs-xs); color: var(--c-blue); font-weight: 600; }
+.ap-pmi__date { font-size: var(--fs-sm); padding-top: 4px; white-space: nowrap; }
+.ap-pmi__docs { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding-top: 4px; min-width: 0; }
+.ap-pmi__prot { font-size: var(--fs-sm); }
+.ap-pmi__acts { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: var(--space-2); text-align: right; }
+.ap-pmi__ans { font-size: var(--fs-sm); color: var(--c-muted); }
+.ap-pmi__ans.is-priedu { color: var(--c-ok); font-weight: 600; }
+.ap-pmi__foot { padding: var(--space-2) var(--space-4); border-top: 1px solid var(--c-line); margin: 0; }
+
+/* --- история ------------------------------------------------------------------ */
+.ap-ist__list { padding: 0 var(--space-4); }
+.ap-ist__item { grid-template-columns: 130px minmax(0, 1fr); }
+.ap-ist__item p { margin: 0; }
+.ap-ist__what { font-size: var(--fs-base); }
+.ap-ist__name { color: var(--c-text); font-weight: 500; }
+.ap-ist__item[data-side="zavod"] .events__date { box-shadow: inset 3px 0 0 var(--c-navy); padding-left: 8px; }
+.ap-ist__item[data-side="zakazchik"] .events__date { box-shadow: inset 3px 0 0 var(--c-blue); padding-left: 8px; }
+
+/* --- документы ------------------------------------------------------------------ */
+.ap-post { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; }
+.ap-post p { margin: 0; }
+.ap-post .h2 { margin: var(--space-1) 0; }
+.ap-post .btn--on-blue { color: var(--c-navy); text-decoration: none; }  /* .blok-siniy a красит ссылки белым — кнопку возвращаем */
+.ap-komplekt__list { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); }
+.ap-komplekt__list li { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-1); padding: var(--space-3); background: var(--c-surface-2); border-radius: var(--radius); }
+
+/* --- узкие экраны ------------------------------------------------------------------
+   Мониторы завода 1024–1920 (04b): ниже 1180 сведения из 4 колонок в 2, реестр
+   прячет дату выпуска (она же на кнопке ревизии в документе), ниже 960 — и «на ком шаг»
+   (он же в шапке карточки). Названия документов не сжимаются в столбик. */
+@media (max-width: 1180px) {
+  .ap-pasp { grid-template-columns: minmax(0, 1fr); }
+  .ap-mgr { border-left: 0; border-top: 1px solid var(--c-line); }
+  .ap-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ap-facts__i:nth-child(3n) { border-right: 1px solid var(--c-line); }
+  .ap-facts__i:nth-child(2n) { border-right: 0; }
+  .ap-facts__i:nth-last-child(-n+3) { border-bottom: 1px solid var(--c-line); }
+  .ap-facts__i:nth-last-child(-n+2) { border-bottom: 0; }
+  .ap-reg [data-col="date"] { display: none; }
+  .ap-doc__grid { grid-template-columns: minmax(0, 1fr) 340px; }
+  .ap-pmi__cols, .ap-pmi__item { grid-template-columns: 24px 32px minmax(0, 1fr) 90px minmax(0, 170px) 300px; }
+}
+@media (max-width: 960px) {
+  .ap-reg [data-col="nakom"] { display: none; }
+}
+@media (max-width: 1024px) {
+  .ap-doc__grid { grid-template-columns: minmax(0, 1fr); }
+  .ap-doc__side { border-left: 0; border-top: 1px solid var(--c-line); }
+  .ap-zavod__grid { grid-template-columns: minmax(0, 1fr); }
+  .ap-pmi__cols { display: none; }
+  .ap-pmi__item { grid-template-columns: 24px 32px minmax(0, 1fr); }
+  .ap-pmi__date, .ap-pmi__docs, .ap-pmi__acts { grid-column: 3; padding-top: 0; }
+  .ap-pmi__acts { justify-content: flex-start; text-align: left; }
+  .ap-opros__kv { grid-template-columns: max-content minmax(0, 1fr); }
+  .ap-komplekt__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .ap-head__side { align-items: flex-start; text-align: left; }
+  .ap-stats { grid-template-columns: minmax(0, 1fr); }
+  .ap-stat { border-right: 0; border-bottom: 1px solid var(--c-line); }
+  .ap-stat:last-child { border-bottom: 0; }
+  .ap-ist__item { grid-template-columns: minmax(0, 1fr); }
+  .ap-ist__list { padding: 0 var(--space-3); }
+  .ap-komplekt__list { grid-template-columns: minmax(0, 1fr); }
+  .ap-doc__view, .ap-doc__side { padding: var(--space-3); }
+  .ap-pmi__acts .btn { flex: 1 1 auto; }
+  .ap-opros__kv { grid-template-columns: minmax(0, 1fr); }
+}

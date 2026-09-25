@@ -1,0 +1,66 @@
+/* Мои аппараты — apparaty.html. Владелец — таск 05.
+   Только токены из styles.css: литералов цвета и размера шрифта нет, жирность не выше 600.
+   Вид — из семьи карточки аппарата (apparat.css): моно-заголовки прописными,
+   обозначение моно синим, плашка «на ком шаг», плотная раскладка. */
+
+.apy-sec-title {
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--fs-sm); line-height: 1.3;
+  text-transform: uppercase; letter-spacing: var(--track-mono); margin: 0;
+}
+
+/* --- шапка экрана ------------------------------------------------------------ */
+.apy-head .h1 { color: var(--c-navy); margin-bottom: var(--space-1); }
+.apy-head__main { min-width: 0; }
+.apy-head__where { margin: 0; color: var(--c-muted); font-size: var(--fs-base); }
+
+/* --- требуют ответа ------------------------------------------------------------ */
+.apy-otvet { border-left: 3px solid var(--c-warn); }
+.apy-otvet .card__head { justify-content: flex-start; }
+.apy-otvet__list { list-style: none; margin: 0; padding: 0; }
+.apy-otvet__i {
+  display: grid; grid-template-columns: 90px minmax(0, 1fr) auto; gap: var(--space-1) var(--space-4); align-items: baseline;
+  padding: var(--space-3) var(--space-4); border-top: 1px solid var(--c-line);
+}
+.apy-otvet__i:first-child { border-top: 0; }
+.apy-otvet__poz { color: var(--c-blue); font-size: var(--fs-sm); }
+.apy-otvet__main { min-width: 0; }
+.apy-otvet__link { font-weight: 500; }
+.apy-otvet__note { display: block; font-size: var(--fs-sm); color: var(--c-muted); }
+.apy-otvet__srok { font-size: var(--fs-sm); font-weight: 500; color: var(--c-warn); white-space: nowrap; }
+
+/* --- карточки ------------------------------------------------------------------ */
+.apy-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+.apy-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); min-width: 0; }
+.apy-card:hover .apy-card__title { color: var(--c-blue); }
+.apy-card__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
+.apy-card__top .label { margin: 0; }
+.apy-card__title { margin: 0; font-size: var(--fs-md); font-weight: 600; line-height: 1.3; color: var(--c-navy); }
+.apy-card__obozn { margin: 0; font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--c-blue); overflow-wrap: anywhere; }
+.apy-card__nomer { margin: 0; font-size: var(--fs-sm); }
+.apy-card__etap {
+  display: flex; flex-direction: column; gap: 6px; margin-top: var(--space-1);
+  padding-top: var(--space-3); border-top: 1px solid var(--c-line);
+}
+.apy-card__etap-t { font-size: var(--fs-sm); color: var(--c-muted); }
+.apy-card__etap .etapy-mini { width: 100%; }
+.apy-card__date { margin: 0; font-weight: 500; }
+.apy-card__foot { margin-top: auto; padding-top: var(--space-2); }
+.apy-card__foot .nakom { font-size: var(--fs-sm); }
+
+/* --- остальной парк ------------------------------------------------------------ */
+.apy-rest__obozn { display: block; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--c-muted); overflow-wrap: anywhere; }
+.apy-rest .table td { vertical-align: middle; }
+
+@media (max-width: 1180px) {
+  .apy-rest [data-col="zavNomer"] { display: none; }
+}
+@media (max-width: 960px) {
+  .apy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .apy-grid { grid-template-columns: minmax(0, 1fr); }
+  .apy-head .page-head__actions, .apy-head .page-head__actions .btn { width: 100%; }
+  .apy-otvet__i { grid-template-columns: minmax(0, 1fr); }
+  .apy-otvet__srok { white-space: normal; }
+  .apy-rest [data-col="osvid"] { display: none; }
+}

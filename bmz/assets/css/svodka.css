@@ -1,0 +1,60 @@
+/* Сводка для руководства — svodka.html. Владелец — таск 11.
+   Шапка экрана, плитки-счётчики и заголовки блоков — общие, из styles.css (11a).
+   Только токены: литералов цвета и размера шрифта нет, жирность не выше 600.
+   Числа и полосы в HTML и CSS, без библиотек графиков. */
+
+.sv > * + * { margin-top: var(--space-4); }
+.sv .page-head { margin-bottom: 0; }
+
+.sv-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); align-items: stretch; }
+.sv-blok { min-width: 0; }
+.sv-hint { margin: 0; padding: var(--space-3) var(--space-4) 0; font-size: var(--fs-sm); color: var(--c-muted); }
+.sv-sub { margin: var(--space-4) 0 var(--space-2); font-size: var(--fs-sm); font-weight: 500; color: var(--c-muted); }
+.sv-more { margin: var(--space-3) 0 0; font-size: var(--fs-sm); }
+.sv-stats { display: inline-flex; flex-wrap: wrap; max-width: 100%; }
+.sv-stats .plitka { flex: 1 1 auto; }
+
+/* --- воронка: строка этапа с полосой ------------------------------------------ */
+.sv-vor { list-style: none; margin: var(--space-4) 0 0; padding: 0; border-top: 1px solid var(--c-line); }
+.sv-vor__row {
+  display: grid; grid-template-columns: minmax(150px, 1.1fr) minmax(80px, 1fr) 32px minmax(0, 1.5fr);
+  gap: var(--space-3); align-items: center; padding: var(--space-2) 0; border-bottom: 1px solid var(--c-line);
+}
+.sv-vor__title { font-size: var(--fs-sm); font-weight: 500; color: var(--c-navy); }
+.sv-vor__bar { display: block; height: 10px; background: var(--c-surface-2); border-radius: var(--radius); overflow: hidden; }
+.sv-vor__fill { display: block; height: 100%; background: var(--c-blue); }
+.sv-vor__n { font-size: var(--fs-md); text-align: right; color: var(--c-navy); }
+.sv-vor__dney { font-size: var(--fs-sm); color: var(--c-muted); }
+.sv-vor__dney .mono { color: var(--c-text); }
+.sv-vor__row.is-dolgiy .sv-vor__fill { background: var(--c-warn); }
+
+/* --- таблицы блоков ------------------------------------------------------------- */
+.sv-blok .table td { vertical-align: middle; }
+.sv-a__name { display: block; font-weight: 500; }
+.sv-a__poz { display: block; font-size: var(--fs-xs); color: var(--c-muted); }
+.sv-rel { display: block; font-size: var(--fs-xs); color: var(--c-muted); line-height: 1.35; }
+.sv-blok .nakom { font-size: var(--fs-xs); padding: 2px 8px; border-left-width: 2px; }
+.sv-blok tr.is-overdue td:first-child { box-shadow: inset 3px 0 0 var(--c-danger); }
+.sv-blok .badge { white-space: nowrap; }
+.sv-povod { display: block; }
+.sv-povod + .sv-povod { margin-top: 2px; }
+.sv-povod__d { color: var(--c-muted); }
+
+.sv-dengi { margin: 0; padding: var(--space-3) var(--space-4); background: var(--c-surface-2); border-left: 3px solid var(--c-line-strong); font-size: var(--fs-sm); color: var(--c-muted); }
+
+/* --- ширины (04b) --------------------------------------------------------------- */
+@media (max-width: 1366px) {
+  .sv-vor__row { grid-template-columns: minmax(140px, 1fr) minmax(60px, .8fr) 28px minmax(0, 1.4fr); }
+}
+@media (max-width: 1180px) {
+  .sv-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 960px) {
+  .sv-blok [data-col="zakazchik"] { display: none; }
+}
+/* Телефон не проектируется (решение 26.09): достаточно, чтобы страница не ломалась. */
+@media (max-width: 767px) {
+  .sv-vor__row { grid-template-columns: minmax(0, 1fr) 32px; }
+  .sv-vor__bar, .sv-vor__dney { grid-column: 1 / -1; }
+  .sv-stats { display: flex; }
+}

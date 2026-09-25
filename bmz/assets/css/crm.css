@@ -1,0 +1,122 @@
+/* Воронка и сервис — crm.html; мини-воронка карточки заказчика. Владелец — таск 07.
+   Только токены из styles.css: литералов цвета и размера шрифта нет, жирность не выше 600.
+   Раскладка — по референсам Otis ONE (сводка сверху, единицы ниже) и Aconex
+   (реестр со статусом и сроком); стиль — концепция сайта 5.2. */
+
+.crm > * + * { margin-top: var(--space-4); }
+.crm .crm-head { margin-bottom: 0; align-items: flex-end; }
+/* Шапка экрана, счётчики и заголовок блока — общие с другими экранами завода,
+   живут в styles.css (.page-head--zavod, .plitki, .sec-title; 11a). */
+
+.crm .crm-tabs { margin-top: var(--space-5); margin-bottom: 0; }
+.crm-body > * + * { margin-top: var(--space-4); }
+.crm-note { margin: 0; font-size: var(--fs-sm); color: var(--c-muted); }
+
+/* --- фильтры и вид ---------------------------------------------------------------- */
+.crm-bar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3) var(--space-4); }
+.crm-bar__f { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.crm-bar__f .label { margin: 0; }
+.crm-bar__f .select { min-width: 220px; max-width: 100%; }
+.crm-bar__nami { align-self: center; padding-top: var(--space-4); font-size: var(--fs-base); }
+.crm-bar__vid { display: inline-flex; gap: var(--space-1); margin-left: auto; }
+
+/* --- воронка колонками -------------------------------------------------------------- */
+.crm-board { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-3); align-items: start; }
+.crm-col { background: var(--c-surface-2); border: 1px solid var(--c-line); border-radius: var(--radius-lg); min-width: 0; }
+.crm-col__head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin: 0;
+  padding: var(--space-3); border-bottom: 1px solid var(--c-line);
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--fs-xs); line-height: 1.3;
+  text-transform: uppercase; letter-spacing: var(--track-mono); color: var(--c-navy);
+}
+.crm-col__n { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 12px; background: var(--c-surface); border: 1px solid var(--c-line); font-size: var(--fs-xs); }
+.crm-col__list { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-2); }
+.crm-col__empty { margin: 0; padding: var(--space-4) var(--space-3); font-size: var(--fs-sm); color: var(--c-muted); text-align: center; }
+
+.crm-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: var(--space-3);
+  background: var(--c-surface); border: 1px solid var(--c-line); border-left: 3px solid var(--c-line-strong);
+  border-radius: var(--radius); color: var(--c-text); min-width: 0; transition: border-color .15s, box-shadow .15s;
+}
+.crm-card:hover { text-decoration: none; border-color: var(--c-blue); box-shadow: var(--shadow); }
+.crm-card.is-overdue { border-left-color: var(--c-danger); }
+.crm-card.is-new { border-left-color: var(--c-warn); }
+.crm-card__top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--space-2); width: 100%; }
+.crm-card__poz { font-size: var(--fs-sm); font-weight: 500; color: var(--c-blue); }
+.crm-card__tip { font-size: var(--fs-xs); color: var(--c-muted); }
+.crm-card__new { margin-left: auto; font-size: var(--fs-2xs); }
+.crm-card__name { font-weight: 600; font-size: var(--fs-base); line-height: 1.25; overflow-wrap: anywhere; }
+.crm-card__zak { font-size: var(--fs-sm); color: var(--c-muted); line-height: 1.3; overflow-wrap: anywhere; }
+.crm-card .nakom { font-size: var(--fs-xs); padding: 3px 8px; border-left-width: 2px; line-height: 1.35; max-width: 100%; }
+.crm-card__sob { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+.crm-sob { display: block; padding: 4px 8px; border-radius: var(--radius); font-size: var(--fs-xs); line-height: 1.35; }
+.crm-sob--info { background: var(--c-info-bg); color: var(--c-info); }
+.crm-sob--warn { background: var(--c-warn-bg); color: var(--c-warn); }
+.crm-sob--ok { background: var(--c-ok-bg); color: var(--c-ok); }
+.crm-sob--neutral { background: var(--c-neutral-bg); color: var(--c-neutral); }
+.crm-card__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px var(--space-2); width: 100%; padding-top: 6px; border-top: 1px solid var(--c-line); font-size: var(--fs-xs); color: var(--c-muted); }
+.crm-card__dney .mono { color: var(--c-text); font-weight: 500; }
+
+/* --- перетаскивание (07a) ------------------------------------------------------------
+   Куда можно бросить — синяя подсветка колонки, куда нельзя — приглушено.
+   Возврат и подсказка — короткий переход без прыжков. */
+.crm-board { position: relative; }
+.crm-col { transition: opacity .15s, border-color .15s, background-color .15s; }
+.crm-board.is-dragging .crm-col.is-drop-ok { border-color: var(--c-blue); background: var(--c-info-bg); }
+.crm-board.is-dragging .crm-col.is-drop-ok.is-over { box-shadow: inset 0 0 0 1px var(--c-blue); }
+.crm-board.is-dragging .crm-col.is-drop-no { opacity: .45; }
+.crm-card.is-drag { position: relative; z-index: 20; pointer-events: none; box-shadow: var(--shadow-lg); border-color: var(--c-blue); transition: none; }
+/* Пока карточка едет на место, она не перехватывает указатель: следующий бросок видит колонку под ней. */
+.crm-card.is-returning { position: relative; z-index: 20; pointer-events: none; transition: transform .18s ease-out, box-shadow .18s; }
+.crm-card.is-moved { border-color: var(--c-blue); }
+body.crm-drag, body.crm-drag * { cursor: grabbing; user-select: none; -webkit-user-select: none; }
+.crm-hint {
+  position: absolute; z-index: 30; padding: var(--space-2) var(--space-3);
+  background: var(--c-surface); border: 1px solid var(--c-line-strong); border-left: 3px solid var(--c-warn);
+  border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  font-size: var(--fs-sm); line-height: 1.4; color: var(--c-text);
+  opacity: 0; transition: opacity .2s; pointer-events: none;
+}
+.crm-hint.is-shown { opacity: 1; }
+.crm-hint--ok { border-left-color: var(--c-ok); }
+@media (min-width: 768px) {
+  /* Вертикальная прокрутка пальцем остаётся за браузером, сдвиг вбок — перетаскивание. */
+  .crm-board .crm-card { touch-action: pan-y; -webkit-user-drag: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crm-card.is-returning, .crm-hint, .crm-col { transition: none; }
+}
+
+/* --- воронка таблицей и сервис --------------------------------------------------------- */
+.crm-table .table td, .crm-servis .table td { vertical-align: middle; }
+.crm-table .nakom { font-size: var(--fs-xs); padding: 2px 8px; border-left-width: 2px; }
+.crm-table tr.is-overdue td:first-child { box-shadow: inset 3px 0 0 var(--c-danger); }
+.crm-t__name { font-weight: 500; }
+.crm-t__poz { font-size: var(--fs-xs); color: var(--c-muted); }
+.crm-servis .card__head { flex-wrap: wrap; }
+.crm-servis__n { font-size: var(--fs-sm); }
+.crm-obr__vid { font-weight: 600; }
+.crm-obr__vid--reklamaciya { color: var(--c-danger); }
+.crm-obr__text { display: block; font-size: var(--fs-xs); color: var(--c-muted); max-width: 360px; }
+.crm-servis tr.crm-obr--novoe td:first-child { box-shadow: inset 3px 0 0 var(--c-warn); }
+
+/* --- ширины (04b) ------------------------------------------------------------------ */
+@media (max-width: 1180px) {
+  .crm-board { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .crm-table [data-col="manager"] { display: none; }
+}
+@media (max-width: 960px) {
+  .crm-table [data-col="etap"] { display: none; }
+  .crm-servis [data-col="zakazchik"] { display: none; }
+  .crm-bar__vid { margin-left: 0; }
+}
+/* Телефон: воронка — списком, колонки друг под другом. */
+@media (max-width: 767px) {
+  .crm-board { grid-template-columns: minmax(0, 1fr); }
+  .crm-bar__f, .crm-bar__f .select { width: 100%; min-width: 0; }
+  .crm-bar__vid { width: 100%; }
+  .crm-bar__vid .btn { flex: 1 1 0; }
+  .crm-card__new { margin-left: 0; }
+  .crm-table [data-col="zakazchik"], .crm-table [data-col="dney"] { display: none; }
+  .crm-servis [data-col="date"] { display: none; }
+}

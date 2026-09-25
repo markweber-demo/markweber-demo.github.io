@@ -1,0 +1,75 @@
+/* Заказчики и карточка заказчика — zakazchiki.html, zakazchik.html. Владелец — таск 07.
+   Подключается после crm.css: счётчики и заголовки берёт оттуда.
+   Только токены, литералов цвета и размера шрифта нет. Раскладка — Otis ONE
+   (площадка → единицы) и Salesforce (заказчик → его активы). */
+
+.zk > * + * { margin-top: var(--space-4); }
+.zk > .crumbs + .zk-head { margin-top: 0; }
+.zk .crm-head { margin-bottom: 0; }
+
+.zk-name { font-weight: 500; }
+.zk-rel { display: block; font-size: var(--fs-xs); color: var(--c-muted); line-height: 1.35; }
+.zk-povod { margin-top: 4px; }
+.zk-obozn { font-size: var(--fs-xs); overflow-wrap: anywhere; }
+.zk .table td { vertical-align: middle; }
+
+/* --- список заказчиков --------------------------------------------------------- */
+.zk-list__head { flex-wrap: wrap; align-items: flex-end; }
+.zk-search { display: flex; flex-direction: column; gap: 4px; flex: 0 1 360px; min-width: 0; }
+.zk-search .label { margin: 0; }
+.zk-hint { margin: 0; padding: var(--space-3) var(--space-4) 0; font-size: var(--fs-sm); color: var(--c-muted); }
+.zk-tbl { padding-top: var(--space-2); }
+/* Шапки числовых колонок переносятся по словам, название предприятия в столбик не сжимается. */
+.zk-list .table th { white-space: normal; vertical-align: bottom; }
+.zk-list td[data-col="name"] { min-width: 240px; }
+
+/* --- карточка заказчика ---------------------------------------------------------- */
+.zk-park .card__head, .zk-istoriya .card__head, .zk-kontakty .card__head { flex-wrap: wrap; }
+.zk-park .card__head .zk-rel { display: inline; }
+.zk-kont { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-3) var(--space-5); }
+.zk-kont__i { min-width: 0; padding-left: var(--space-3); border-left: 2px solid var(--c-line); }
+.zk-rel--in { display: inline; }
+.zk-park .zk-povod { margin-top: 2px; }
+.zk-park [data-col="obozn"] { white-space: nowrap; }
+.zk-kont__i p { margin: 0; }
+.zk-kont__name { font-weight: 600; }
+.zk-kont__pos { font-size: var(--fs-sm); }
+.zk-kont__ust, .zk-kont__cont { font-size: var(--fs-xs); color: var(--c-muted); margin-top: 2px; }
+.zk-kont__cont { color: var(--c-text); overflow-wrap: anywhere; }
+
+.zk-vor { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-2); }
+.zk-vor__col { background: var(--c-surface-2); border-radius: var(--radius); padding: var(--space-2); min-width: 0; }
+.zk-vor__col.is-full { background: var(--c-blue-tint); }
+.zk-vor__head {
+  display: flex; justify-content: space-between; gap: var(--space-2); margin: 0 0 var(--space-2);
+  font-family: var(--font-mono); font-size: var(--fs-2xs); font-weight: 500; text-transform: uppercase; letter-spacing: var(--track-mono); color: var(--c-navy);
+}
+.zk-vor__a {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: var(--space-2); margin-top: var(--space-1);
+  background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--radius); font-size: var(--fs-sm); color: var(--c-text); overflow-wrap: anywhere;
+}
+.zk-vor__a:hover { text-decoration: none; border-color: var(--c-blue); }
+.zk-vor__a .nakom { font-size: var(--fs-2xs); padding: 2px 6px; border-left-width: 2px; }
+.zk-more { margin: var(--space-3) 0 0; }
+.zk-ist a { font-weight: 500; }
+
+/* --- ширины (04b) -------------------------------------------------------------- */
+@media (max-width: 1366px) {
+  .zk-list [data-col="group"] { display: none; }
+}
+@media (max-width: 1180px) {
+  .zk-vor { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .zk-list [data-col="city"] { display: none; }
+  .zk-park [data-col="obozn"] { display: none; }
+}
+@media (max-width: 960px) {
+  .zk-list [data-col="obr"] { display: none; }
+  .zk-park [data-col="god"] { display: none; }
+}
+@media (max-width: 767px) {
+  .zk-kont { grid-template-columns: minmax(0, 1fr); }
+  .zk-vor { grid-template-columns: minmax(0, 1fr); }
+  .zk-search { flex-basis: 100%; }
+  .zk-list [data-col="zayavki"] { display: none; }
+  .zk-park [data-col="garantiya"], .zk-park [data-col="obr"] { display: none; }
+}
