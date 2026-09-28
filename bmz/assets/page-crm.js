@@ -184,7 +184,7 @@
         '<option value="">Все типы</option>' +
         Object.keys(tipy).map(function (t) { return '<option value="' + esc(t) + '"' + (t === st.tip ? ' selected' : '') + '>' + esc(tipy[t].title) + '</option>'; }).join('') +
       '</select></label>' +
-      '<label class="choice crm-bar__nami"><input type="checkbox" id="crm-nami"' + (st.nami ? ' checked' : '') + '> Шаг на мне</label>' +
+      '<label class="choice crm-bar__nami"><input type="checkbox" id="crm-nami"' + (st.nami ? ' checked' : '') + '> Шаг за нами</label>' +
       (aktivny ? '<button class="btn btn--ghost btn--sm" type="button" data-act="crm-reset">Сбросить фильтр</button>' : '') +
       '<span class="crm-bar__vid" role="group" aria-label="Вид">' +
         ['kolonki', 'tablica'].map(function (v) {
