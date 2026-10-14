@@ -1,0 +1,93 @@
+/* Макет печати — раздел карточки продукта (assets/maket.js). Префикс mk-.
+   Рисунок мешка устроен сам (правила лежат внутри SVG, класс mkr); здесь раскладка раздела:
+   версии, рисунок с метками, список замечаний с ответами, форма замечания, решение по версии.
+   Цвета и кегли — токены styles.css. Плоско, без теней; кольцо у выбранной метки — как у этапа. */
+
+.mk { min-width: 0; }
+.mk__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-5); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.mk__h { margin: 0; }
+.mk__status { display: flex; align-items: center; gap: var(--space-2) var(--space-4); flex-wrap: wrap; min-width: 0; }
+.mk__shag { margin: 0; font-size: var(--fs-base); min-width: 0; }
+.mk__soglasovano { display: flex; align-items: center; gap: var(--space-2) var(--space-3); flex-wrap: wrap; min-width: 0; }
+.mk__soglasovano p { margin: 0; min-width: 0; }
+.mk__oshibka { margin: 0 0 var(--space-4); font-size: var(--fs-sm); }
+.mk__pusto { margin: 0; }
+.mk__versii { margin-bottom: var(--space-5); }
+.mk .tab__count { margin-left: var(--space-2); }
+
+.mk__grid { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+.mk__left, .mk__right { min-width: 0; }
+
+/* рисунок: поверх него кнопка для метки и кнопки-метки в процентах рисунка */
+.mk-ris { margin: 0; }
+.mk-ris__sheet { position: relative; border-radius: var(--radius); }
+.mk-ris__sheet > svg { display: block; width: 100%; height: auto; }
+.mk-tap {
+  position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; padding: 0; border: 0; border-radius: var(--radius);
+  background: transparent; cursor: crosshair; transition: background-color .2s;
+}
+.mk-tap:hover { background: var(--c-primary-tint); opacity: .4; }
+.mk-tap:focus-visible { box-shadow: var(--focus); }
+.mk-hint { margin: var(--space-3) 0 0; font-size: var(--fs-sm); color: var(--c-muted); }
+.mk-ris__cap { margin-top: var(--space-3); font-size: var(--fs-sm); color: var(--c-muted); }
+.mk-ris__cap p { margin: 0 0 var(--space-1); }
+.mk-ris__cap p:last-child { margin-bottom: 0; }
+
+/* метка: на рисунке и номером в списке; ответ получен — белая с фиолетовым номером */
+.mk-pin, .mk-zm__n {
+  display: inline-flex; align-items: center; justify-content: center; flex: none; width: 28px; height: 28px; padding: 0;
+  border-radius: 50%; border: 2px solid var(--c-surface); background: var(--c-primary); color: var(--c-on-primary);
+  font-size: var(--fs-xs); font-weight: 500; line-height: 1; letter-spacing: 0; cursor: pointer;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.mk-pin { position: absolute; z-index: 2; transform: translate(-50%, calc(-100% - 6px)); }
+/* острие метки лежит в точке замечания, кружок над ней: надпись под меткой остаётся читаемой */
+.mk-pin::after {
+  content: ''; position: absolute; left: 50%; top: 100%; width: 10px; height: 7px; margin: -1px 0 0 -5px;
+  background: var(--c-primary); clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.mk-pin.is-niz { transform: translate(-50%, 6px); }
+.mk-pin.is-niz::after { top: auto; bottom: 100%; margin: 0 0 -1px -5px; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+.mk-pin.is-otvecheno, .mk-zm__n.is-otvecheno { background: var(--c-surface); border-color: var(--c-primary); color: var(--c-primary); }
+.mk-pin[aria-pressed="true"], .mk-zm__n[aria-pressed="true"] { box-shadow: 0 0 0 4px var(--c-primary-tint), 0 0 0 5px var(--c-primary); }
+.mk-pin--novaya { background: var(--c-wait); border: 2px dashed var(--c-text); color: var(--c-on-wait); pointer-events: none; cursor: default; }
+.mk-pin--novaya::after { background: var(--c-text); }
+
+/* замечания версии: автор, дата, текст, ответ КЗПМ или форма ответа */
+.mk__zm-head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.mk__zm-head .h3 { margin: 0; }
+.mk__count {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 8px;
+  border-radius: var(--radius-pill); background: var(--c-surface); font-size: var(--fs-xs); font-weight: 500; letter-spacing: 0;
+}
+.mk-zm { list-style: none; display: grid; gap: var(--space-3); }
+.mk-zm__item { min-width: 0; padding: var(--space-4); background: var(--c-surface); border-radius: var(--radius); }
+.mk-zm__item.is-hl { box-shadow: inset 0 0 0 2px var(--c-primary); }
+.mk-zm__top { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2) var(--space-3); margin-bottom: var(--space-2); }
+.mk-zm__kto { min-width: 0; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.mk-zm__data { margin-left: auto; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; white-space: nowrap; }
+.mk-zm__text { margin: 0 0 var(--space-3); overflow-wrap: anywhere; }
+.mk-otvet { margin: 0; padding: var(--space-3); background: var(--c-block-2); border-radius: var(--radius-sm); min-width: 0; }
+.mk-otvet--zhdet { padding: 0; background: none; }
+.mk-otvet__head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2) var(--space-3); margin: 0 0 var(--space-2); }
+.mk-otvet__text { margin: 0; overflow-wrap: anywhere; }
+.mk-otvet-forma { margin-top: var(--space-3); }
+.mk-knopki { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); margin-top: var(--space-3); }
+.mk__zm .mk__proshlaya { margin: var(--space-4) 0 0; font-size: var(--fs-sm); }
+
+/* новое замечание заказчика */
+.mk-forma { margin-top: var(--space-5); padding: var(--space-4); background: var(--c-surface); border-radius: var(--radius); }
+.mk-forma .h3 { margin-bottom: var(--space-2); }
+.mk-forma__metka { margin: 0 0 var(--space-3); font-size: var(--fs-sm); color: var(--c-muted); }
+
+/* решение по текущей версии: согласовать или загрузить следующую */
+.mk__reshenie { margin-top: var(--space-5); }
+.mk__hint { margin: var(--space-2) 0 0; font-size: var(--fs-sm); }
+
+@media (max-width: 1023px) {
+  .mk__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .mk-ris { max-width: 440px; }
+}
+@media (max-width: 767px) {
+  .mk.card { padding: var(--space-4); }
+}

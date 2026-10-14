@@ -1,0 +1,50 @@
+/* Карточка заказа — zakaz.html. Владелец — таск 03 (опорный экран).
+   Префикс zk-. Общие блоки карточки (шапка, «на ком шаг», документы, история,
+   превью листа) — в styles.css: их переиспользуют карточки продукта и претензии. */
+
+.zk-blok__h { margin-bottom: var(--space-4); }
+.zk-ryad { margin-top: var(--space-5); align-items: start; }
+
+/* отгрузки: вагон или окно самовывоза — белая карточка внутри блока */
+.zk-otgr { list-style: none; display: grid; gap: var(--space-3); }
+.zk-otgr__item { min-width: 0; padding: var(--space-4) var(--space-5); background: var(--c-surface); border-radius: var(--radius); }
+.zk-otgr__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-3); }
+.zk-otgr__title { margin: 0; font-size: var(--fs-card); line-height: 1.2; letter-spacing: var(--track-h); }
+.zk-otgr__pl, .zk-otgr__adres { display: block; }
+.zk-otgr__adres { color: var(--c-muted); }
+.zk-otgr__note { margin: var(--space-3) 0 0; font-size: var(--fs-sm); color: var(--c-muted); }
+
+/* партии: номер и объём слева, паспорт качества и «Скачать» справа */
+.zk-partii { list-style: none; display: grid; gap: var(--space-3); }
+.zk-partii__item {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4); background: var(--c-surface); border-radius: var(--radius);
+}
+.zk-partii__main { flex: 1 1 180px; min-width: 0; }
+.zk-partii__title { margin: 0; font-size: var(--fs-base); }
+.zk-partii__meta { margin: 2px 0 0; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.zk-partii__knopki { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+/* о заказе: ключевые числа, как характеристики товара на сайте */
+.zk-chisla { gap: var(--space-4) var(--space-7); margin-bottom: var(--space-5); }
+
+/* форма отгрузки у менеджера: вагон или окно самовывоза */
+.zk-forma { margin-top: var(--space-4); padding: var(--space-5); background: var(--c-surface); border-radius: var(--radius); }
+.zk-forma__title { margin-bottom: var(--space-1); }
+.zk-forma__lead { margin: 0 0 var(--space-4); font-size: var(--fs-sm); color: var(--c-muted); }
+.zk-forma__sposob { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.zk-forma__sposob .tab { margin: 0; }
+.zk-forma__polya { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); align-items: start; }
+.zk-forma__pole { min-width: 0; }
+.zk-forma__pole--shire { grid-column: span 2; }
+.zk-forma__oshibka { margin-top: var(--space-3); }
+.zk-forma__knopki { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-5); }
+
+@media (max-width: 1023px) {
+  .zk-forma__polya { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .zk-forma__polya { grid-template-columns: minmax(0, 1fr); }
+  .zk-forma__pole--shire { grid-column: auto; }
+  .zk-otgr__item, .zk-forma { padding: var(--space-4); }
+}

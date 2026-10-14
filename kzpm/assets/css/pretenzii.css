@@ -1,0 +1,14 @@
+/* Претензии — pretenzii.html. Владелец — таск 07. Префикс prs-.
+   Список претензий: у заказчика свои, у службы сервиса — очередь. Общие блоки
+   (карточка, ключевые числа, таблица, плашки статусов) — в styles.css. */
+
+.prs-blok__h { margin-bottom: var(--space-4); }
+.prs-ryad { margin-top: var(--space-5); }
+.prs-chisla { margin-bottom: var(--space-6); }
+
+/* ячейка: основная строка, под ней мелкая подпись (партия и вид, дни без ответа, текст шага) */
+.prs-nom, .prs-data, .prs-sub { display: block; }
+.prs-sub { margin-top: 2px; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+
+/* дни без ответа у службы сервиса: просроченный срок — красным */
+.prs-dni.is-overdue { color: var(--c-overdue-text); font-weight: 500; }

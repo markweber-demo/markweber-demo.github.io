@@ -1,0 +1,79 @@
+/* Отгрузки по рамочному договору — otgruzki.html. Таск 06. Префикс og-.
+   Только токены из styles.css: литералов цвета и размера шрифта нет, жирность не выше 600.
+   Блоки — серые карточки, внутри белые строки, как в карточке заказа. Полоса недели
+   рисуется заливкой: полученное — фиолетовое, в пути — светло-фиолетовое с рамкой,
+   запланированное — серое, плановая отметка — тёмная черта. */
+
+.og-blok__h { margin-bottom: var(--space-2); }
+.og-ryad { margin-top: var(--space-5); }
+.og-dogovory { margin-bottom: var(--space-5); }
+.og-dogovory .tab { max-width: 100%; white-space: normal; text-align: left; }
+.og-period { margin: 0 0 var(--space-5); color: var(--c-muted); }
+
+/* ключевые числа и пояснение колонок */
+.og-chisla { gap: var(--space-4) var(--space-7); margin-bottom: var(--space-5); }
+.og-chisla .chislo { max-width: 260px; }
+.og-legend { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin: 0 0 var(--space-4); font-size: var(--fs-sm); color: var(--c-muted); }
+.og-legend__i { display: inline-flex; align-items: center; gap: var(--space-2); }
+.og-swatch { flex: none; display: inline-block; width: 14px; height: 10px; border-radius: var(--radius-pill); }
+.og-swatch--poluchena { background: var(--c-primary); }
+.og-swatch--v-puti { background: var(--c-primary-tint); box-shadow: inset 0 0 0 1px var(--c-primary); }
+.og-swatch--zaplan { background: var(--c-line); }
+.og-swatch--plan { width: 2px; height: 14px; border-radius: 0; background: var(--c-text); }
+
+/* таблица недель */
+.og-grafik th, .og-grafik td { white-space: nowrap; }
+.og-grafik td { vertical-align: middle; }
+.og-nedelya { font-weight: 500; }
+.og-sejchas { margin-left: var(--space-2); }
+.og-grafik tr.og-row--budushchaya .og-nedelya { font-weight: 400; }
+.og-grafik tfoot th, .og-grafik tfoot td { background: var(--c-surface); border-top: 2px solid var(--c-line-pill); color: var(--c-text); font-weight: 500; padding-top: 14px; padding-bottom: 14px; }
+.og-grafik tfoot th { font-size: var(--fs-sm); letter-spacing: -0.02em; }
+.og-grafik [data-col="bar"] { width: 22%; min-width: 150px; }
+.og-grafik [data-col="og"] { white-space: normal; }
+.og-grafik [data-col="og"] a { display: inline-block; margin-right: var(--space-1); }
+
+.og-bar { position: relative; display: flex; height: 12px; min-width: 120px; border-radius: var(--radius-pill); background: var(--c-block); }
+.og-bar__seg { display: block; height: 100%; min-width: 4px; }
+.og-bar__seg:first-child { border-radius: var(--radius-pill) 0 0 var(--radius-pill); }
+.og-bar__seg:last-of-type { border-radius: 0 var(--radius-pill) var(--radius-pill) 0; }
+.og-bar__seg:only-of-type { border-radius: var(--radius-pill); }
+.og-bar__seg--poluchena { background: var(--c-primary); }
+.og-bar__seg--v-puti { background: var(--c-primary-tint); box-shadow: inset 0 0 0 1px var(--c-primary); }
+.og-bar__seg--zaplan { background: var(--c-line); }
+.og-bar__plan { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--c-text); }
+
+/* отгрузки: группы, белая строка на группу, слева вагон или окно, справа документы */
+.og-gruppa + .og-gruppa { margin-top: var(--space-6); }
+.og-gruppa__h { display: flex; align-items: baseline; gap: var(--space-2); margin-bottom: var(--space-3); }
+.og-gruppa__n { font-size: var(--fs-sm); font-weight: 400; color: var(--c-muted); }
+.og-spisok { list-style: none; display: grid; gap: var(--space-3); }
+.og-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: var(--space-3) var(--space-6); min-width: 0; padding: var(--space-4) var(--space-5); background: var(--c-surface); border-radius: var(--radius); scroll-margin-top: var(--space-5); }
+.og-card:target { box-shadow: 0 0 0 2px var(--c-primary); }
+.og-card__main { min-width: 0; }
+.og-card .kv { gap: 2px var(--space-5); }
+.og-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-3); }
+.og-card__title { margin: 0; font-size: var(--fs-card); line-height: 1.2; letter-spacing: var(--track-h); }
+.og-card__pl, .og-card__adres { display: block; }
+.og-card__adres { color: var(--c-muted); }
+.og-card__note { margin: var(--space-3) 0 0; font-size: var(--fs-sm); color: var(--c-muted); }
+.og-card__dok { min-width: 0; padding-left: var(--space-5); border-left: 1px solid var(--c-line); }
+.og-card__dok-h { margin-bottom: var(--space-2); }
+.og-card__dok > .og-card__note { margin-top: 0; }
+.og-dok { list-style: none; display: grid; gap: var(--space-2); }
+.og-dok__item { display: flex; flex-direction: column; min-width: 0; }
+.og-dok__item a { font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.og-dok__meta { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+
+@media (max-width: 1180px) {
+  .og-grafik [data-col="og"] { display: none; }
+  .og-card { grid-template-columns: minmax(0, 1fr) minmax(0, 280px); gap: var(--space-3) var(--space-5); }
+}
+@media (max-width: 1023px) {
+  .og-grafik [data-col="bar"] { width: 18%; min-width: 110px; }
+}
+@media (max-width: 767px) {
+  .og-card { grid-template-columns: minmax(0, 1fr); padding: var(--space-4); }
+  .og-card__dok { padding-left: 0; padding-top: var(--space-3); border-left: 0; border-top: 1px solid var(--c-line); }
+  .og-grafik [data-col="bar"] { display: none; }
+}

@@ -1,0 +1,31 @@
+/* Продукты и образцы — produkty.html. Владелец — таск 04. Префикс pk-.
+   Заказчик: карточки как в каталоге сайта (.card--link из styles.css, фото на всю
+   ширину, название 20 px, под ним этап и «на ком шаг»). Сотрудник: таблица всех
+   заказчиков с «на ком шаг» и днями. */
+
+.pk-gruppa__n { font-size: var(--fs-md); }
+
+/* карточка продукта: фото, название, этап, плашка «на ком шаг» внизу */
+.pk-karta { display: flex; flex-direction: column; min-width: 0; }
+.pk-karta .card__title { overflow-wrap: break-word; }
+.pk-karta__net {
+  display: grid; place-items: center; width: 100%; height: 100%; padding: var(--space-4); text-align: center;
+  background: var(--c-block-2); border-radius: var(--radius); font-size: var(--fs-card); letter-spacing: var(--track-h); color: var(--c-muted);
+}
+.pk-karta__shag { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: auto; padding-top: var(--space-3); }
+.pk-karta__dni { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.card--link:hover .pk-karta__dni { color: var(--c-on-primary); }
+
+/* сотрудник: ключевые числа и таблица очереди */
+.pk-chisla { margin-bottom: var(--space-2); gap: var(--space-4) var(--space-7); }
+.pk-tablica { padding: var(--space-3); }
+.pk-tablica .table { table-layout: fixed; }
+.pk-tablica .table th, .pk-tablica .table td { overflow-wrap: break-word; }
+.pk-tablica .table th { white-space: normal; }
+/* в узкой колонке плашка идёт в две-три строки: пилюля превращается в блок со скруглением карточки */
+.pk-tablica .nakom { font-size: var(--fs-xs); padding: 3px 10px; border-radius: var(--radius-sm); }
+.pk-tablica__nazvanie { display: block; }
+.pk-tablica__tip { display: block; margin-top: 2px; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.pk-tablica__etap { display: block; margin-bottom: 6px; }
+.pk-tablica__shag { display: block; margin-top: 6px; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.pk-tablica .etapy-mini { min-width: 0; max-width: 140px; }

@@ -1,0 +1,71 @@
+/* Главная заказчика — kabinet.html. Таск 08. Префикс kb-.
+   Только токены из styles.css: литералов цвета и размера шрифта нет, жирность не выше 600.
+   «Ждёт вас» — серый блок с крупным числом и строками-ссылками; под ним заказы и отгрузки
+   таблицами в сером блоке и продукты в отработке карточками как в каталоге сайта. */
+
+/* блоки одной колонкой; первый встаёт сразу под шапкой, без двойного отступа */
+.shapka + .kb-sec { margin-top: 0; }
+.kb-sec .section__head { align-items: baseline; }
+
+/* общие подписи в ячейках и карточках */
+.kb-sub { display: block; margin-top: 2px; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; overflow-wrap: anywhere; }
+.kb-etap { display: block; margin-top: var(--space-1); font-size: var(--fs-xs); letter-spacing: 0; }
+.kb-zakaz { display: block; font-weight: 500; overflow-wrap: anywhere; }
+.kb-og__t { display: block; }
+
+/* 1. Ждёт вас: число и строки; строка — белая, под курсором заливается, как карточка каталога */
+.kb-zhdet { padding: var(--space-5); }
+.kb-zhdet__chislo { flex-direction: row; align-items: baseline; gap: var(--space-4); margin-bottom: var(--space-4); }
+.kb-zhdet__list { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
+.kb-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-3) var(--space-5);
+  padding: var(--space-4) var(--space-5); background: var(--c-surface); border-radius: var(--radius); color: var(--c-text);
+  transition: background-color .2s, color .2s;
+}
+.kb-row:hover { text-decoration: none; background: var(--c-primary); color: var(--c-on-primary); }
+.kb-row__main { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.kb-row__title { font-size: var(--fs-card); line-height: 1.2; letter-spacing: var(--track-h); overflow-wrap: anywhere; }
+.kb-row__shag { font-size: var(--fs-base); overflow-wrap: anywhere; }
+.kb-row__dni { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.kb-row__side { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); min-width: 0; max-width: 380px; text-align: right; }
+.kb-row__side .nakom { justify-content: flex-end; max-width: 100%; border-radius: var(--radius-sm); }
+.kb-row:hover .kb-row__dni, .kb-row:hover .link-more { color: var(--c-on-primary); }
+.kb-row:hover .nakom, .kb-row:hover .badge { box-shadow: 0 0 0 1px var(--c-on-primary); }
+
+/* 2–3. Заказы и отгрузки: таблица в сером блоке, как на экране «Заказы» */
+.kb-tablica { padding: var(--space-4); }
+.kb-tablica .table { table-layout: fixed; }
+.kb-tablica .table th { white-space: normal; }
+.kb-tablica .table th, .kb-tablica .table td { overflow-wrap: break-word; }
+.kb-tablica .table td { vertical-align: middle; }
+.kb-tablica .etapy-mini { min-width: 0; max-width: 140px; }
+/* в узкой колонке плашка идёт в две-три строки: пилюля превращается в блок со скруглением карточки */
+.kb-tablica .nakom { max-width: 100%; font-size: var(--fs-xs); padding: 3px 10px; border-radius: var(--radius-sm); }
+.kb-tablica .nakom + .kb-sub { margin-top: var(--space-1); }
+
+/* 4. Продукты в отработке: карточка каталога без фото; под курсором заливка и белый текст */
+.kb-karty { align-items: stretch; }
+.kb-karta { position: relative; display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.kb-karta .card__title { overflow-wrap: anywhere; }
+.kb-karta .card__more { position: absolute; top: var(--space-5); right: var(--space-5); margin: 0; }
+.kb-karta__tip { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; max-width: calc(100% - 120px); }
+.kb-karta__etap { display: block; }
+.kb-karta .etapy-mini { min-width: 0; }
+.kb-karta__shag { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-1); margin-top: auto; padding-top: var(--space-3); }
+.kb-karta .nakom { max-width: 100%; border-radius: var(--radius-sm); }
+.kb-karta:hover .kb-karta__tip, .kb-karta:hover .kb-sub { color: var(--c-on-primary); }
+/* отрезки ленты фиолетовые: на фиолетовой заливке они белеют */
+.kb-karta:hover .etapy-mini__seg.is-done, .kb-karta:hover .etapy-mini__seg.is-current { background: var(--c-on-primary); }
+.kb-karta:hover .etapy-mini__seg.is-current { box-shadow: 0 0 0 2px var(--c-on-primary-line); }
+
+@media (max-width: 960px) {
+  .kb-row { grid-template-columns: minmax(0, 1fr); }
+  .kb-row__side { align-items: flex-start; max-width: none; text-align: left; }
+  .kb-row__side .nakom { justify-content: flex-start; }
+}
+@media (max-width: 767px) {
+  .kb-zhdet { padding: var(--space-3); }
+  .kb-zhdet__chislo { flex-direction: column; gap: var(--space-1); }
+  .kb-tablica { padding: var(--space-2); }
+  .kb-karta .card__more { position: static; margin-top: var(--space-2); }
+}

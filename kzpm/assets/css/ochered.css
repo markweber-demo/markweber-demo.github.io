@@ -1,0 +1,41 @@
+/* Очередь — ochered.html. Таск 08. Префикс oc-.
+   Таблица в сером блоке, как списки заказов и продуктов. Просроченная строка помечена
+   красной чертой слева, плашка срока красная (цвет решает Render.naKom). */
+
+.oc-chisla { margin-bottom: var(--space-6); }
+.oc-tabs { margin-bottom: var(--space-5); }
+.oc-tabs .tab__count { color: inherit; opacity: .75; }
+
+.oc-tablica { padding: var(--space-4); }
+.oc-tablica .table { table-layout: fixed; }
+/* ширины колонок по ключу data-col; на узком экране колонка «Тип» прячется, тип остаётся под названием */
+.oc-tablica th[data-col="title"] { width: 24%; }
+.oc-tablica th[data-col="tip"] { width: 10%; }
+.oc-tablica th[data-col="zakazchik"] { width: 14%; }
+.oc-tablica th[data-col="shag"] { width: 19%; }
+.oc-tablica th[data-col="srok"] { width: 24%; }
+.oc-tablica th[data-col="dney"] { width: 9%; }
+.oc-sub.oc-sub--tip { display: none; }
+.oc-tablica .table th { white-space: normal; }
+.oc-tablica .table th, .oc-tablica .table td { overflow-wrap: break-word; }
+.oc-tablica .table td { vertical-align: middle; }
+.oc-title { display: block; font-weight: 500; overflow-wrap: anywhere; }
+.oc-sub { display: block; margin-top: 2px; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+/* в узкой колонке плашка идёт в две-три строки: пилюля превращается в блок со скруглением карточки */
+.oc-tablica .nakom { max-width: 100%; font-size: var(--fs-xs); padding: 3px 10px; border-radius: var(--radius-sm); }
+.oc-row--overdue td:first-child { box-shadow: inset 3px 0 0 var(--c-overdue); }
+
+@media (max-width: 1279px) {
+  .oc-tablica [data-col="tip"] { display: none; }
+  .oc-sub.oc-sub--tip { display: block; }
+  /* срок шире, чтобы плашка просрочки шла в одну строку */
+  .oc-tablica th[data-col="title"] { width: 26%; }
+  .oc-tablica th[data-col="zakazchik"] { width: 16%; }
+  .oc-tablica th[data-col="shag"] { width: 21%; }
+  .oc-tablica th[data-col="srok"] { width: 27%; }
+  .oc-tablica th[data-col="dney"] { width: 10%; }
+  .oc-tablica .table th, .oc-tablica .table td { padding-left: var(--space-3); padding-right: var(--space-3); }
+}
+@media (max-width: 767px) {
+  .oc-tablica { padding: var(--space-2); }
+}

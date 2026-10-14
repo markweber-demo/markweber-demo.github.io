@@ -1,0 +1,72 @@
+/* Список заказов — zakazy.html. Таск 06. Префикс zy-.
+   Только токены из styles.css: литералов цвета и размера шрифта нет, жирность не выше 600.
+   Заказчик видит таблицу в сером блоке, сотрудник — доску из шести колонок по этапам
+   или такую же таблицу. Колонки доски и сетка перестраиваются по ширине, а не уезжают вбок. */
+
+.zy-chisla { margin-bottom: var(--space-6); }
+
+/* вкладки заказчика и панель фильтров сотрудника */
+.zy-tabs { margin-bottom: var(--space-5); }
+.zy-tabs .tab__count { color: inherit; opacity: .75; }
+.zy-bar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3) var(--space-4); margin-bottom: var(--space-5); }
+.zy-bar__f { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.zy-bar__f .label { margin: 0; }
+.zy-bar__f .select { min-width: 280px; max-width: 100%; }
+.zy-bar__nami { align-self: center; padding-top: var(--space-4); font-size: var(--fs-base); }
+.zy-bar__vid { display: inline-flex; gap: var(--space-2); margin-left: auto; }
+
+/* таблица: номер и продукт, мини-лента и название этапа, на ком шаг и текст шага */
+.zy-tablica { padding: var(--space-4); }
+.zy-tablica .table td { vertical-align: middle; }
+.zy-zakaz { display: block; font-weight: 500; }
+.zy-produkt { display: block; margin-top: 2px; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.zy-etap { display: block; margin-top: var(--space-1); font-size: var(--fs-xs); letter-spacing: 0; }
+.zy-shag { display: block; margin-top: var(--space-1); font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.zy-tablica .etapy-mini { max-width: 140px; }
+.zy-tablica .nakom { display: inline-block; max-width: 100%; font-size: var(--fs-xs); padding: 3px 10px; border-radius: var(--radius); }
+/* плашка просрочки короткая и идёт в одну строку: колонка таблицы раздвигается под неё */
+.zy-tablica .nakom.is-overdue { white-space: nowrap; }
+.zy-risk { margin-top: var(--space-1); }
+
+/* доска: колонка серая, карточка белая; под курсором рамка фиолетовая */
+.zy-board { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-3); align-items: start; }
+.zy-col { min-width: 0; padding-bottom: var(--space-2); background: var(--c-block); border-radius: var(--radius); }
+.zy-col__head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin: 0;
+  padding: var(--space-3) var(--space-3) var(--space-2); font-size: var(--fs-sm); font-weight: 500; line-height: 1.3; letter-spacing: -0.02em;
+}
+.zy-col__title { min-width: 0; }
+.zy-col__n {
+  flex: none; display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: var(--radius-pill);
+  background: var(--c-surface); font-size: var(--fs-xs); font-weight: 500; letter-spacing: 0;
+}
+.zy-col__list { display: flex; flex-direction: column; gap: var(--space-2); padding: 0 var(--space-2); }
+.zy-col__empty { margin: 0; padding: var(--space-2) var(--space-3) var(--space-3); font-size: var(--fs-sm); color: var(--c-muted); text-align: center; }
+.zy-col__more { display: block; width: calc(100% - 2 * var(--space-2)); margin: var(--space-2) var(--space-2) 0; }
+
+.zy-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-width: 0; padding: var(--space-3);
+  background: var(--c-surface); border: 1px solid transparent; border-radius: var(--radius-sm); color: var(--c-text);
+  transition: border-color .2s;
+}
+.zy-card:hover { text-decoration: none; border-color: var(--c-primary); }
+.zy-card.is-risk { border-left: 3px solid var(--c-overdue); }
+.zy-card__top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--space-2); width: 100%; }
+.zy-card__nomer { font-weight: 500; }
+.zy-card__produkt { font-size: var(--fs-sm); line-height: 1.3; overflow-wrap: anywhere; }
+.zy-card__zakazchik { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; overflow-wrap: anywhere; }
+.zy-card__obem { font-size: var(--fs-base); color: var(--c-primary); }
+.zy-card .etapy-mini { width: 100%; min-width: 0; }
+.zy-card .nakom { display: block; max-width: 100%; font-size: var(--fs-xs); padding: 4px 10px; border-radius: var(--radius-sm); }
+.zy-card__dney { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.zy-card .zy-shag, .zy-card .zy-etap { margin-top: 0; }
+
+@media (max-width: 1180px) {
+  .zy-board { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .zy-bar__vid { margin-left: 0; }
+}
+@media (max-width: 767px) {
+  .zy-board { grid-template-columns: minmax(0, 1fr); }
+  .zy-bar__f, .zy-bar__f .select { width: 100%; min-width: 0; }
+  .zy-tablica { padding: var(--space-2); }
+}

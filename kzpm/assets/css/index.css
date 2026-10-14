@@ -1,0 +1,59 @@
+/* Вход — index.html. Владелец — таск 02.
+   Без шапки (урок БМЗ G17): логотип и название уже на экране. Язык сайта:
+   белый фон, крупный заголовок Inter 400 с отрицательным трекингом, три
+   двери в ряд: заказчик — фиолетовая плашка, как подвал сайта, КЗПМ — блоки
+   #f1f2f8, как карточки каталога; кнопки-пилюли. За дверью один человек,
+   выбора внутри нет (решение Аделя 13.10). */
+
+.vhod { padding-top: var(--space-7); padding-bottom: 96px; }
+
+.vhod__hero { margin-bottom: var(--space-7); }
+.vhod__logo { display: block; height: 60px; width: auto; margin: 0 0 var(--space-7); }
+.vhod__title { font-size: var(--fs-xxl); line-height: 1.05; letter-spacing: var(--track-hero); font-weight: 400; margin: 0 0 var(--space-4); }
+.vhod__lead { color: var(--c-muted); font-size: var(--fs-md); max-width: 720px; margin: 0; }
+.vhod__next { margin: var(--space-4) 0 0; display: inline-block; padding: 6px 16px; border-radius: var(--radius-pill); background: var(--c-wait); color: var(--c-on-wait); font-size: var(--fs-sm); }
+
+.vhod__roli { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
+.vhod-rol { display: flex; flex-direction: column; gap: var(--space-5); padding: var(--space-6); border-radius: var(--radius); background: var(--c-block); min-width: 0; }
+.vhod-rol__title { font-size: var(--fs-lg); line-height: 1.2; letter-spacing: var(--track-h); font-weight: 400; margin: 0 0 var(--space-2); }
+.vhod-rol__head p { margin: 0; max-width: 640px; }
+.vhod-rol__foot { margin-top: auto; }
+
+/* кто входит: один человек за дверью, без выбора */
+.vhod-kto { padding: 12px 16px; border: 1px solid var(--c-line-pill); border-radius: var(--radius-sm); background: var(--c-surface); }
+.vhod-kto__name { display: block; font-weight: 500; }
+.vhod-kto__meta { display: block; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+
+/* заказчик — фиолетовая плашка с белым текстом, как подвал сайта */
+.vhod-rol--zakazchik { background: var(--c-primary); color: var(--c-on-primary); }
+.vhod-rol--zakazchik .vhod-kto { background: transparent; border-color: var(--c-on-primary-line); }
+.vhod-rol--zakazchik .vhod-kto__meta { color: var(--c-on-primary); }
+
+.vhod__dop { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+
+.vhod__kak { margin-top: var(--space-7); padding: var(--space-6); background: var(--c-block-2); border-radius: var(--radius); }
+.vhod__scen { list-style: none; margin: var(--space-4) 0; border-top: 1px solid var(--c-line); }
+.vhod__scen li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--space-3); align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--c-line); }
+.vhod__scen b { font-weight: 500; }
+.vhod__bukva { font-size: var(--fs-lg); line-height: 1; font-style: italic; color: var(--c-primary); }
+.vhod__notes { padding-left: 18px; color: var(--c-muted); margin-bottom: var(--space-4); }
+.vhod__notes li { margin: 3px 0; }
+.vhod__local { display: inline-block; margin: 0; padding: 6px 16px; border-radius: var(--radius-pill); background: var(--c-primary-tint); color: var(--c-work); font-weight: 500; font-size: var(--fs-sm); }
+
+.vhod__foot { color: var(--c-muted); font-size: var(--fs-xs); margin-top: var(--space-6); }
+
+@media (max-width: 1279px) {
+  .vhod-rol { padding: var(--space-5); }
+}
+@media (max-width: 1023px) {
+  .vhod__roli { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  .vhod { padding-top: var(--space-5); }
+  .vhod__hero { margin-bottom: var(--space-5); }
+  .vhod__logo { height: 44px; margin-bottom: var(--space-5); }
+  .vhod__lead { font-size: var(--fs-base); }
+  .vhod__roli { grid-template-columns: minmax(0, 1fr); }
+  .vhod-rol, .vhod__kak { padding: var(--space-5) var(--space-4); }
+  .vhod__scen li { grid-template-columns: 32px minmax(0, 1fr); }
+}

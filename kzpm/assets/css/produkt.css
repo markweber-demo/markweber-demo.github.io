@@ -1,0 +1,50 @@
+/* Карточка продукта — produkt.html. Владелец — таск 04. Префикс pd-.
+   Общие блоки карточки (шапка, «на ком шаг», документы, история, превью листа) — в
+   styles.css, как у карточки заказа. Здесь: панели ходов (образцы, протокол, решение,
+   заявка), пилюли выбора, место под раздел макета печати. */
+
+.pd-blok__h { margin-bottom: var(--space-4); }
+.pd-ryad { margin-top: var(--space-5); align-items: start; }
+.pd-blok { min-width: 0; }
+
+/* раздел макета печати строит assets/maket.js; страница держит только место */
+.pd-maket { margin-top: var(--space-5); min-width: 0; }
+.pd-maket__zhdet { margin: 0; }
+
+/* панель хода: белый блок внутри карточки ленты, поля в две колонки */
+.pd-panel { margin-top: var(--space-4); padding: var(--space-5); background: var(--c-surface); border-radius: var(--radius); }
+.pd-panel__title { margin-bottom: var(--space-1); }
+.pd-panel__lead { margin: 0 0 var(--space-4); font-size: var(--fs-sm); color: var(--c-muted); }
+.pd-panel__polya { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); align-items: start; }
+.pd-pole { display: block; min-width: 0; margin: 0; padding: 0; border: 0; }
+.pd-pole > legend { padding: 0; }
+.pd-pole--vse { grid-column: 1 / -1; }
+.pd-panel__oshibka { margin-top: var(--space-3); }
+.pd-panel__knopki { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-5); }
+
+/* пилюли выбора способа получения: как фильтры каталога сайта, выбранная залита */
+.pd-vybory { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pd-vybor { position: relative; display: inline-flex; max-width: 100%; cursor: pointer; }
+.pd-vybor input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.pd-vybor span {
+  display: inline-block; max-width: 100%; padding: 9px 22px; border: 1px solid var(--c-line-pill); border-radius: var(--radius-pill);
+  background: var(--c-surface); font-size: var(--fs-sm); line-height: 1.25; letter-spacing: -0.02em;
+  transition: background-color .2s, border-color .2s, color .2s;
+}
+.pd-vybor:hover span { border-color: var(--c-primary); }
+.pd-vybor input:checked + span { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); }
+.pd-vybor input:focus-visible + span { box-shadow: var(--focus); }
+
+/* протокол: выбор своего файла; поле выбора лежит прозрачным поверх кнопки */
+.pd-fayl { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; min-width: 0; }
+.pd-fayl__vybor { position: relative; overflow: hidden; cursor: pointer; }
+.pd-fayl__vybor input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.pd-fayl__vybor:focus-within { box-shadow: var(--focus); }
+.pd-fayl__imya { min-width: 0; font-size: var(--fs-sm); color: var(--c-muted); overflow-wrap: anywhere; }
+
+@media (max-width: 1023px) {
+  .pd-panel__polya { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  .pd-panel { padding: var(--space-4); }
+}

@@ -1,0 +1,24 @@
+/* Документы — dokumenty.html. Таск 06. Префикс dk-.
+   Только токены из styles.css: литералов цвета и размера шрифта нет, жирность не выше 600.
+   Вкладки по типу документа, ниже таблица в сером блоке; строка открывает лист. */
+
+.dk-tabs { margin-bottom: var(--space-5); }
+.dk-tabs .tab { gap: 6px; }
+.dk-tabs .tab__count { color: inherit; opacity: .75; }
+.dk-bar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3) var(--space-4); margin-bottom: var(--space-5); }
+.dk-bar__f { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.dk-bar__f .label { margin: 0; }
+.dk-bar__f .select { min-width: 280px; max-width: 100%; }
+
+.dk-tablica { padding: var(--space-4); }
+.dk-tablica .table td { vertical-align: middle; }
+.dk-title { overflow-wrap: anywhere; }
+.dk-tablica .table tr.is-link td:last-child { white-space: nowrap; }
+
+@media (max-width: 1180px) {
+  .dk-tablica [data-col="tip"] { display: none; }
+}
+@media (max-width: 767px) {
+  .dk-bar__f, .dk-bar__f .select { width: 100%; min-width: 0; }
+  .dk-tablica { padding: var(--space-2); }
+}

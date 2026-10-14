@@ -1,0 +1,75 @@
+/* Претензия — pretenziya.html: карточка и форма новой претензии. Владелец — таск 07.
+   Префикс pr-. Общие блоки (шапка карточки, «на ком шаг», история, документы,
+   нет доступа) — в styles.css; здесь только то, что есть у одной претензии:
+   рабочие панели службы сервиса, ответы, фото и форма. */
+
+.pr-blok__h { margin-bottom: var(--space-4); }
+.pr-ryad { margin-top: var(--space-5); align-items: start; }
+.pr-podzagolovok { margin-top: var(--space-5); }
+
+/* рассмотрение: плашка шага и две рабочие панели службы сервиса (белые на сером) */
+.pr-hody { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
+.pr-hod { min-width: 0; padding: var(--space-5); background: var(--c-surface); border-radius: var(--radius); }
+.pr-hod__title { margin-bottom: var(--space-3); }
+.pr-hod__knopki { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-4); }
+
+/* о претензии */
+.pr-pasport { margin: var(--space-4) 0 0; }
+.pr-opisanie { margin: 0; white-space: pre-line; }
+
+/* ответы службы сервиса и решение: белая карточка внутри серого блока */
+.pr-otvety { list-style: none; display: grid; gap: var(--space-3); }
+.pr-otvet, .pr-reshenie { min-width: 0; padding: var(--space-4) var(--space-5); background: var(--c-surface); border-radius: var(--radius); }
+.pr-otvet__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-2); }
+.pr-otvet__kogda { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+.pr-otvet__text { margin: 0; }
+.pr-otvet__kto { margin: var(--space-2) 0 0; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; }
+
+/* фото: сетка из двух, крупно — в окне */
+.pr-foto { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin-bottom: var(--space-3); }
+.pr-foto__item .btn--ghost { margin-left: calc(-1 * var(--space-3)); }
+.pr-foto__item { min-width: 0; }
+.pr-foto__btn {
+  display: block; width: 100%; padding: 0; border: 0; background: none; border-radius: var(--radius); overflow: hidden; cursor: pointer;
+}
+.pr-foto__img { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); background: var(--c-block-2); }
+.pr-foto__btn:hover .pr-ph { transform: scale(1.06); }
+.pr-foto__cap { margin: var(--space-2) 0 0; font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0; overflow-wrap: anywhere; }
+.pr-ph { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.pr-krupno { border-radius: var(--radius); overflow: hidden; background: var(--c-block-2); }
+.pr-krupno .pr-ph { height: auto; max-height: 70vh; }
+
+/* демо-фото: фрагмент мешка со швом на ленте транспортёра */
+.pr-ph__fon { fill: var(--c-line); }
+.pr-ph__lenta { fill: var(--c-muted); }
+.pr-ph__rolik { fill: var(--c-line-pill); }
+.pr-ph__meshok { fill: var(--c-surface); stroke: var(--c-line); stroke-width: 3; }
+.pr-ph__shov { fill: var(--c-block-2); stroke: var(--c-line); stroke-width: 2; }
+.pr-ph__liniya { fill: none; stroke: var(--c-line); stroke-width: 2; }
+.pr-ph__prosvet { fill: var(--c-text); }
+.pr-ph__defekt { fill: none; stroke: var(--c-overdue); stroke-width: 3; stroke-linejoin: round; }
+.pr-ph__granula { fill: var(--c-muted); }
+.pr-ph__pechat { font-size: var(--fs-xxl); fill: var(--c-primary); }
+.pr-ph__smaz { opacity: .3; }
+.pr-ph__polosa { fill: var(--c-primary); opacity: .3; }
+
+/* форма новой претензии: слева партия, вид и описание, справа фото */
+.pr-forma { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-6); align-items: start; padding: var(--space-6); }
+.pr-forma__kol { display: grid; gap: var(--space-4); min-width: 0; }
+.pr-forma__niz { grid-column: 1 / -1; }
+.pr-forma__oshibka { margin: 0 0 var(--space-3); }
+.pr-forma__knopki { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.pr-fotoforma .field__label { margin-bottom: var(--space-2); }
+.pr-fotoforma__knopki { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-2); }
+
+/* выбор файла: прозрачное поле лежит поверх кнопки-подписи; фокус с клавиатуры — на подписи */
+.pr-file { position: relative; overflow: hidden; }
+.pr-file__input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.pr-file:focus-within { box-shadow: var(--focus); }
+
+@media (max-width: 1023px) {
+  .pr-hody { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  .pr-forma { grid-template-columns: minmax(0, 1fr); padding: var(--space-4); }
+}
